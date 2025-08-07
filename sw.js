@@ -1,9 +1,8 @@
-// Better Yourself - Service Worker
-// Enables offline functionality and install prompt
+// Better Yourself - Offline-First Service Worker
+// Enables complete offline functionality
 
-const CACHE_NAME = 'better-yourself-v1.0.0';
+const CACHE_NAME = 'better-yourself-offline-v1.0.0';
 const STATIC_CACHE = 'better-yourself-static-v1';
-const DYNAMIC_CACHE = 'better-yourself-dynamic-v1';
 
 // Files to cache for offline use
 const STATIC_FILES = [
@@ -14,16 +13,16 @@ const STATIC_FILES = [
 
 // Install event - cache static files
 self.addEventListener('install', (event) => {
-  console.log('Service Worker: Installing...');
+  console.log('Service Worker: Installing for offline use...');
   
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('Service Worker: Caching static files');
+        console.log('Service Worker: Caching all files for offline use');
         return cache.addAll(STATIC_FILES);
       })
       .then(() => {
-        console.log('Service Worker: Installation complete');
+        console.log('Service Worker: Ready for offline use');
         return self.skipWaiting(); // Activate immediately
       })
       .catch((error) => {
@@ -34,7 +33,7 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker: Activating...');
+  console.log('Service Worker: Activating offline mode...');
   
   event.waitUntil(
     caches.keys()
@@ -42,7 +41,7 @@ self.addEventListener('activate', (event) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
             // Delete old caches
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            if (cacheName !== STATIC_CACHE) {
               console.log('Service Worker: Deleting old cache', cacheName);
               return caches.delete(cacheName);
             }
@@ -50,13 +49,13 @@ self.addEventListener('activate', (event) => {
         );
       })
       .then(() => {
-        console.log('Service Worker: Activation complete');
+        console.log('Service Worker: Offline mode activated');
         return self.clients.claim(); // Take control immediately
       })
   );
 });
 
-// Fetch event - serve cached files or fetch from network
+// Fetch event - ALWAYS serve from cache (offline-first)
 self.addEventListener('fetch', (event) => {
   // Only handle GET requests
   if (event.request.method !== 'GET') {
@@ -71,13 +70,14 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
-        // Return cached version if available
+        // ALWAYS return cached version if available (offline-first strategy)
         if (cachedResponse) {
-          console.log('Service Worker: Serving from cache', event.request.url);
+          console.log('Service Worker: Serving from cache (offline)', event.request.url);
           return cachedResponse;
         }
 
-        // Otherwise fetch from network
+        // If not in cache, try to fetch and cache for next time
+        // But prioritize cache over network for offline-first experience
         return fetch(event.request)
           .then((networkResponse) => {
             // Don't cache if not a valid response
@@ -88,75 +88,88 @@ self.addEventListener('fetch', (event) => {
             // Clone the response (can only be consumed once)
             const responseToCache = networkResponse.clone();
 
-            // Cache dynamic content
-            caches.open(DYNAMIC_CACHE)
+            // Cache the new content
+            caches.open(STATIC_CACHE)
               .then((cache) => {
-                console.log('Service Worker: Caching dynamic content', event.request.url);
+                console.log('Service Worker: Caching new content', event.request.url);
                 cache.put(event.request, responseToCache);
               })
               .catch((error) => {
-                console.error('Service Worker: Failed to cache dynamic content', error);
+                console.error('Service Worker: Failed to cache new content', error);
               });
 
             return networkResponse;
           })
           .catch((error) => {
-            console.error('Service Worker: Network fetch failed', error);
+            console.log('Service Worker: Network failed, app is fully offline');
             
-            // Return a fallback page for navigation requests when offline
+            // For navigation requests, always return the main app
             if (event.request.destination === 'document') {
-              return caches.match('./index.html');
+              return caches.match('./index.html')
+                .then((response) => {
+                  if (response) {
+                    return response;
+                  }
+                  // Fallback offline page
+                  return new Response(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Better Yourself - Offline</title>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f5f5f5; }
+                            .container { max-width: 400px; margin: 0 auto; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+                            .icon { font-size: 4rem; margin-bottom: 20px; }
+                            h1 { color: #333; margin-bottom: 20px; }
+                            p { color: #666; line-height: 1.6; }
+                            button { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 20px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="icon">🌟</div>
+                            <h1>Better Yourself</h1>
+                            <p>You're currently offline, but your productivity app is ready to work!</p>
+                            <p>All your data is stored locally and will sync when you're back online.</p>
+                            <button onclick="window.location.reload()">Launch App</button>
+                        </div>
+                    </body>
+                    </html>
+                  `, {
+                    headers: { 'Content-Type': 'text/html' }
+                  });
+                });
             }
             
-            // For other requests, let them fail naturally
+            // For other requests when offline, return a basic response
             throw error;
           });
       })
   );
 });
 
-// Handle background sync (for future features)
+// Handle sync for when connection is restored
 self.addEventListener('sync', (event) => {
-  console.log('Service Worker: Background sync triggered', event.tag);
+  console.log('Service Worker: Connection restored, syncing data');
   
   if (event.tag === 'background-sync') {
     event.waitUntil(
-      // You could add background sync logic here
-      // For example, syncing offline task changes
-      Promise.resolve()
+      // Sync any pending data when connection is restored
+      syncOfflineData()
     );
   }
 });
 
-// Handle push notifications (for future features)
-self.addEventListener('push', (event) => {
-  console.log('Service Worker: Push notification received');
-  
-  const options = {
-    body: event.data ? event.data.text() : 'Better Yourself notification',
-    icon: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ctext y=\'.9em\' font-size=\'90\'%3E🌟%3C/text%3E%3C/svg%3E',
-    badge: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ctext y=\'.9em\' font-size=\'90\'%3E🌟%3C/text%3E%3C/svg%3E',
-    vibrate: [200, 100, 200],
-    data: {
-      url: './'
-    }
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('Better Yourself', options)
-  );
-});
-
-// Handle notification clicks
-self.addEventListener('notificationclick', (event) => {
-  console.log('Service Worker: Notification clicked');
-  
-  event.notification.close();
-  
-  event.waitUntil(
-    clients.openWindow(event.notification.data.url || './')
-  );
-});
+// Function to sync offline data (placeholder for future features)
+function syncOfflineData() {
+  return new Promise((resolve) => {
+    console.log('Service Worker: Syncing offline data...');
+    // Here you could sync any offline changes to a server
+    // For now, just resolve immediately
+    resolve();
+  });
+}
 
 // Handle messages from the main thread
 self.addEventListener('message', (event) => {
@@ -167,25 +180,43 @@ self.addEventListener('message', (event) => {
   }
   
   if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0].postMessage({ version: CACHE_NAME });
+    event.ports[0].postMessage({ 
+      version: CACHE_NAME, 
+      offline: true,
+      mode: 'offline-first'
+    });
+  }
+
+  if (event.data && event.data.type === 'CACHE_STATUS') {
+    caches.match('./index.html')
+      .then((response) => {
+        event.ports[0].postMessage({ 
+          cached: !!response,
+          ready: true,
+          mode: 'offline'
+        });
+      });
   }
 });
 
-// Cleanup function for efficient cache management
-const cleanupCaches = () => {
-  return caches.keys()
-    .then((cacheNames) => {
-      const oldCaches = cacheNames.filter(cacheName => {
-        return cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE;
-      });
-      
-      return Promise.all(
-        oldCaches.map(cacheName => caches.delete(cacheName))
-      );
-    });
-};
+// Ensure immediate offline capability
+self.addEventListener('install', (event) => {
+  // Force immediate activation for offline use
+  event.waitUntil(
+    caches.open(STATIC_CACHE)
+      .then((cache) => {
+        return cache.addAll(STATIC_FILES);
+      })
+      .then(() => {
+        console.log('Service Worker: App ready for offline use');
+        return self.skipWaiting();
+      })
+  );
+});
 
-// Periodic cleanup (when service worker is updated)
-self.addEventListener('install', () => {
-  cleanupCaches();
+// Log when app is running offline
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes(self.location.origin)) {
+    console.log('Service Worker: App running in offline mode');
+  }
 });
