@@ -1,0 +1,2976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Yourself - Productive & Happy Life</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 28px 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            border-color: #cbd5e1;
+        }
+
+        .feature-card:active {
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::after {
+            left: 100%;
+        }
+
+        .todo-card::before {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .todo-card:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .calendar-card::before {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .calendar-card:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .feature-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            transition: all 0.3s ease;
+            color: white;
+            font-weight: bold;
+        }
+
+        .todo-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .calendar-icon {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+
+        .install-prompt {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .install-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .install-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Pages styles */
+        .page {
+            display: none;
+            min-height: 100vh;
+            background: #ffffff;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .back-button {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            background: #e2e8f0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .page-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 48px 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        /* To-Do List Styles */
+        .todo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: left;
+        }
+
+        .todo-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .todo-section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .asap-section {
+            border-left: 4px solid #ef4444;
+        }
+
+        .week-section {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .month-section {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .notimeline-section {
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .completed-section {
+            border-left: 4px solid #10b981;
+        }
+
+        .completed-section .task-item {
+            opacity: 0.8;
+            background: #f0fdf4;
+        }
+
+        .completed-section .task-text {
+            text-decoration: line-through;
+            color: #059669;
+        }
+
+        .completed-section .task-checkbox {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #10b981;
+            color: white;
+        }
+
+        /* Completed Tasks Toggle Styles */
+        .completed-tasks-toggle {
+            margin-top: 24px;
+        }
+
+        .completed-toggle-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .completed-toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border-color: #94a3b8;
+        }
+
+        .completed-toggle-btn.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-color: #10b981;
+        }
+
+        .toggle-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .completed-toggle-btn.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .toggle-text {
+            flex: 1;
+        }
+
+        .completed-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .completed-toggle-btn.active .completed-count {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .completed-tasks-container {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .add-task-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-task-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .task-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            background: #f1f5f9;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #cbd5e1;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .task-checkbox.checked {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #374151;
+            word-wrap: break-word;
+        }
+
+        .task-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .task-due-date {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            max-width: fit-content;
+        }
+
+        .task-due-date.normal {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .task-due-date.soon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .task-due-date.urgent {
+            background: #fecaca;
+            color: #dc2626;
+        }
+
+        .task-due-date.overdue {
+            background: #dc2626;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .delete-task-btn {
+            background: #ef4444;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover .delete-task-btn {
+            opacity: 1;
+        }
+
+        .delete-task-btn:hover {
+            background: #dc2626;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #94a3b8;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .task-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .task-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .save-task-btn {
+            background: #10b981;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .save-task-btn:hover {
+            background: #059669;
+        }
+
+        .cancel-task-btn {
+            background: #6b7280;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-task-btn:hover {
+            background: #4b5563;
+        }
+
+        .date-input-container {
+            margin: 8px 0;
+        }
+
+        .date-input-container label {
+            display: block;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .task-date-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .task-date-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Daily Productivity Styles */
+        .productivity-main-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            text-align: center;
+        }
+
+        .today-points-display {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 24px;
+            padding: 40px 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .today-points-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .points-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .points-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .points-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .points-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .productivity-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .add-points-btn, .calendar-btn {
+            flex: 1;
+            max-width: 200px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-points-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .add-points-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .calendar-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .calendar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+
+        .add-points-form {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: left;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .add-points-form h3 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .points-input, .points-reason-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .points-input:focus, .points-reason-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .task-suggestions {
+            margin-bottom: 20px;
+        }
+
+        .suggestions-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .suggestion-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .suggestion-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .suggestion-btn:hover {
+            border-color: #667eea;
+            background: #f8fafc;
+        }
+
+        .suggestion-btn.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .custom-task-section {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+            margin-bottom: 20px;
+        }
+
+        .custom-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .custom-task-inputs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-points-input {
+            width: 120px;
+            margin-bottom: 0;
+        }
+
+        .points-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .points-form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .save-points-btn, .cancel-points-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-points-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .save-points-btn:hover {
+            background: #059669;
+        }
+
+        .cancel-points-btn {
+            background: #6b7280;
+            color: white;
+        }
+
+        .all-tasks-section {
+            margin-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+
+        .all-tasks-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cancel-points-btn:hover {
+            background: #4b5563;
+        }
+
+        /* All Tasks Page Styles */
+        .all-tasks-page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            text-align: left;
+        }
+
+        .all-tasks-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border: 1px solid #86efac;
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #166534;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #166534;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .all-tasks-section-full {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .task-count {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .all-tasks-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .all-task-item-full {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .all-task-item-full::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .all-task-item-full:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #8b5cf6;
+        }
+
+        .all-task-item-full:hover::before {
+            opacity: 1;
+        }
+
+        .all-task-item-full.selected {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .all-task-item-full.selected::before {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .all-task-text-full {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .all-task-item-full.selected .all-task-text-full {
+            color: white;
+        }
+
+        .all-task-points-full {
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .all-task-item-full.selected .all-task-points-full {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .empty-tasks-state {
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-tasks-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* Calendar View Styles */
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: left;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+        }
+
+        .calendar-nav-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .calendar-month-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #64748b;
+            padding: 8px 4px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .calendar-day:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .calendar-day.other-month {
+            color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .calendar-day.today {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-day.has-points {
+            border-color: #cbd5e1;
+        }
+
+        .calendar-day.has-points.points-0-3 {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .calendar-day.has-points.points-4-6 {
+            background: rgba(249, 115, 22, 0.15);
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .calendar-day.has-points.points-7-9 {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .calendar-day.has-points.points-10-12 {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .calendar-day.has-points.points-13-plus {
+            background: rgba(147, 51, 234, 0.15);
+            border-color: rgba(147, 51, 234, 0.3);
+        }
+
+        .calendar-day.has-points.today {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .calendar-day-number {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .calendar-day-points {
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        .calendar-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Day Modal Styles */
+        .day-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .day-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 0;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .day-modal-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .day-modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .day-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .day-modal-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 24px 32px 16px;
+            background: #f8fafc;
+        }
+
+        .day-stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .day-stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .day-stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .day-modal-body {
+            padding: 16px 32px 32px;
+        }
+
+        .day-tasks-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .day-tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .day-task-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .day-task-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        .day-task-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .day-task-points {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .no-tasks-message {
+            text-align: center;
+            color: #9ca3af;
+            font-style: italic;
+            padding: 32px 16px;
+            background: #f9fafb;
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+        }
+
+        /* Autocomplete Styles */
+        .autocomplete-suggestions {
+            display: none;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .autocomplete-suggestions.visible {
+            display: block;
+        }
+
+        .autocomplete-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item:hover {
+            background: #f8fafc;
+        }
+
+        .autocomplete-item.highlighted {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .autocomplete-text {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .autocomplete-points {
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .autocomplete-item.highlighted .autocomplete-points {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 16px;
+            }
+            
+            .title {
+                font-size: 2.4rem;
+            }
+            
+            .feature-card {
+                padding: 24px 20px;
+            }
+            
+            .feature-title {
+                font-size: 1.2rem;
+            }
+            
+            .page-content {
+                padding: 36px 24px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Page -->
+    <div id="main-page" class="page active">
+        <div class="container">
+            <div class="header">
+                <div class="logo">🌟</div>
+                <h1 class="title">Better Yourself</h1>
+                <p class="subtitle">Productive & happy living made simple</p>
+            </div>
+
+            <div class="features">
+                <button class="feature-card todo-card" onclick="showPage('todo-page')">
+                    <div class="feature-content">
+                        <div class="feature-icon todo-icon">✓</div>
+                        <div class="feature-text">
+                            <div class="feature-title">To-Do</div>
+                        </div>
+                    </div>
+                </button>
+
+                <button class="feature-card calendar-card" onclick="showPage('calendar-page')">
+                    <div class="feature-content">
+                        <div class="feature-icon calendar-icon">📊</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Daily Productivity</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <div id="install-prompt" class="install-prompt">
+                <p style="color: #64748b; margin-bottom: 8px;">Add Better Yourself to your home screen</p>
+                <button id="install-button" class="install-button">Install App</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- To-Do Page -->
+    <div id="todo-page" class="page">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('main-page')">← Back to Home</button>
+                <h1 class="page-title">To-Do</h1>
+                <p class="page-subtitle">Organize your day with purposeful planning</p>
+            </div>
+            <div class="page-content">
+                <div class="todo-container">
+                    <div class="todo-section asap-section">
+                        <div class="section-header">
+                            <h3 class="section-title">🔥 ASAP</h3>
+                            <button class="add-task-btn" onclick="addTask('asap')">+ Add Task</button>
+                        </div>
+                        <div class="task-list" id="asap-tasks"></div>
+                    </div>
+
+                    <div class="todo-section week-section">
+                        <div class="section-header">
+                            <h3 class="section-title">📅 Within the Week</h3>
+                            <button class="add-task-btn" onclick="addTask('week')">+ Add Task</button>
+                        </div>
+                        <div class="task-list" id="week-tasks"></div>
+                    </div>
+
+                    <div class="todo-section month-section">
+                        <div class="section-header">
+                            <h3 class="section-title">🗓️ Within the Month</h3>
+                            <button class="add-task-btn" onclick="addTask('month')">+ Add Task</button>
+                        </div>
+                        <div class="task-list" id="month-tasks"></div>
+                    </div>
+
+                    <div class="todo-section notimeline-section">
+                        <div class="section-header">
+                            <h3 class="section-title">⏳ No Timeline</h3>
+                            <button class="add-task-btn" onclick="addTask('notimeline')">+ Add Task</button>
+                        </div>
+                        <div class="task-list" id="notimeline-tasks"></div>
+                    </div>
+
+                    <div class="completed-tasks-toggle">
+                        <button class="completed-toggle-btn" onclick="toggleCompletedTasks()" id="completed-toggle-btn">
+                            <span class="toggle-icon">▼</span>
+                            <span class="toggle-text">Show Completed Tasks</span>
+                            <span class="completed-count" id="completed-count">(0)</span>
+                        </button>
+                        <div class="completed-tasks-container" id="completed-tasks-container" style="display: none;">
+                            <div class="todo-section completed-section" style="border-left: 4px solid #10b981; margin-top: 16px;">
+                                <div class="section-header">
+                                    <h3 class="section-title">✅ Completed Tasks</h3>
+                                    <button class="add-task-btn" onclick="clearCompletedTasks()" style="background: #ef4444;">Clear All</button>
+                                </div>
+                                <div class="task-list" id="completed-tasks"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Page -->
+    <div id="calendar-page" class="page">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('main-page')">← Back to Home</button>
+                <h1 class="page-title">Daily Productivity</h1>
+                <p class="page-subtitle">Build momentum with achievement points</p>
+            </div>
+            <div class="page-content">
+                <div class="productivity-main-screen">
+                    <div class="today-points-display">
+                        <div class="points-icon">🏆</div>
+                        <h2 class="points-title">Today's Points</h2>
+                        <div class="points-number" id="today-points-display">0</div>
+                        <p class="points-subtitle">Keep building your momentum!</p>
+                    </div>
+                    
+                    <div class="productivity-actions">
+                        <button class="add-points-btn" onclick="showAddTaskForm()">+ Add Completed Task</button>
+                        <button class="calendar-btn" onclick="showPage('calendar-view-page')">📅 View Calendar</button>
+                    </div>
+                    
+                    <div class="add-points-form" id="add-task-form" style="display: none;">
+                        <h3>Add Completed Task</h3>
+                        <input type="text" id="task-description" placeholder="What did you accomplish?" maxlength="100" class="points-reason-input">
+                        
+                        <div class="task-suggestions">
+                            <p class="suggestions-label">Quick suggestions:</p>
+                            <div class="suggestion-buttons" id="suggestion-buttons">
+                                <!-- Quick suggestions will be rendered here -->
+                            </div>
+                            
+                            <div class="all-tasks-section">
+                                <button class="all-tasks-btn" onclick="showPage('all-tasks-page')">
+                                    📋 Task Catalog
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-task-section">
+                            <p class="custom-label">Or create custom task:</p>
+                            <div class="autocomplete-suggestions" id="autocomplete-suggestions"></div>
+                            <div class="custom-task-inputs">
+                                <input type="number" id="custom-points" placeholder="Points (1-10)" min="1" max="10" class="points-input custom-points-input">
+                                <span class="points-label">points</span>
+                            </div>
+                        </div>
+                        
+                        <div class="edit-suggestion-form" id="edit-suggestion-form" style="display: none; margin-top: 20px; background: #fff3cd; border: 2px solid #ffeaa7; border-radius: 12px; padding: 20px;">
+                            <h4 style="margin-bottom: 16px; color: #1e293b; font-weight: 700;">✏️ Edit Quick Suggestion</h4>
+                            <input type="text" id="edit-suggestion-description" placeholder="Task description..." maxlength="100" class="task-input" style="margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <input type="number" id="edit-suggestion-points" placeholder="Points" min="1" max="10" class="points-input custom-points-input" style="width: 100px; margin-bottom: 0;">
+                                <span class="points-label">points</span>
+                            </div>
+                            <div class="input-actions">
+                                <button class="save-task-btn" onclick="saveEditedSuggestion()">Save Changes</button>
+                                <button class="cancel-task-btn" onclick="hideEditSuggestionForm()">Cancel</button>
+                            </div>
+                        </div>
+                        
+                        <div class="points-form-actions">
+                            <button class="save-points-btn" onclick="saveCompletedTask()">Add Task</button>
+                            <button class="cancel-points-btn" onclick="hideAddTaskForm()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar View Page -->
+    <div id="calendar-view-page" class="page">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('calendar-page')">← Back to Productivity</button>
+                <h1 class="page-title">Points Calendar</h1>
+                <p class="page-subtitle">Track your daily achievements</p>
+            </div>
+            <div class="page-content">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" onclick="previousMonth()">‹</button>
+                        <h3 class="calendar-month-year" id="calendar-month-year"></h3>
+                        <button class="calendar-nav-btn" onclick="nextMonth()">›</button>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                    <div class="calendar-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">This Month:</span>
+                            <span class="stat-value" id="month-total-points">0 points</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Best Day:</span>
+                            <span class="stat-value" id="month-best-day">0 points</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Active Days:</span>
+                            <span class="stat-value" id="month-active-days">0 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Tasks Page -->
+    <div id="all-tasks-page" class="page">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('calendar-page')">← Back to Add Task</button>
+                <h1 class="page-title">Task Catalog</h1>
+                <p class="page-subtitle">Choose from available tasks to add to your completed activities</p>
+            </div>
+            <div class="page-content">
+                <div class="all-tasks-page-container">
+                    <div class="all-tasks-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-unique-tasks">0</div>
+                            <div class="stat-label">Available Tasks</div>
+                        </div>
+                    </div>
+                    
+                    <div class="all-tasks-section-full">
+                        <div class="section-header">
+                            <h3 class="section-title">📋 Task Catalog</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="task-count" id="task-count-display">0 tasks</span>
+                                <button class="add-task-btn" onclick="showAddCatalogTaskForm()" style="font-size: 0.8rem; padding: 6px 12px;">+ Add Task</button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <input type="text" id="catalog-search" placeholder="🔍 Search tasks..." class="task-input" style="margin-bottom: 0; font-size: 0.9rem; padding: 10px 14px;" oninput="searchCatalogTasks()">
+                        </div>
+                        
+                        <div class="all-tasks-grid-full" id="all-tasks-grid-full"></div>
+                        
+                        <div class="add-catalog-task-form" id="add-catalog-task-form" style="display: none; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                            <h4 style="margin-bottom: 16px; color: #1e293b; font-weight: 700;">Add New Task to Catalog</h4>
+                            <input type="text" id="catalog-task-description" placeholder="Task description..." maxlength="100" class="task-input" style="margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <input type="number" id="catalog-task-points" placeholder="Points" min="1" max="10" class="points-input custom-points-input" style="width: 100px; margin-bottom: 0;">
+                                <span class="points-label">points</span>
+                            </div>
+                            <div class="input-actions">
+                                <button class="save-task-btn" onclick="saveCatalogTask()">Add to Catalog</button>
+                                <button class="cancel-task-btn" onclick="hideCatalogTaskForm()">Cancel</button>
+                            </div>
+                        </div>
+                        
+                        <div class="edit-catalog-task-form" id="edit-catalog-task-form" style="display: none; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                            <h4 style="margin-bottom: 16px; color: #1e293b; font-weight: 700;">Edit Task</h4>
+                            <input type="text" id="edit-catalog-task-description" placeholder="Task description..." maxlength="100" class="task-input" style="margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <input type="number" id="edit-catalog-task-points" placeholder="Points" min="1" max="10" class="points-input custom-points-input" style="width: 100px; margin-bottom: 0;">
+                                <span class="points-label">points</span>
+                            </div>
+                            <div class="input-actions">
+                                <button class="save-task-btn" onclick="saveEditedCatalogTask()">Save Changes</button>
+                                <button class="delete-task-btn" onclick="deleteCatalogTask()" style="opacity: 1; margin-right: auto;">Delete Task</button>
+                                <button class="cancel-task-btn" onclick="hideEditCatalogTaskForm()">Cancel</button>
+                            </div>
+                        </div>
+                        
+                        <div class="edit-suggestion-form" id="edit-suggestion-form" style="display: none; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                            <h4 style="margin-bottom: 16px; color: #1e293b; font-weight: 700;">Edit Quick Suggestion</h4>
+                            <input type="text" id="edit-suggestion-description" placeholder="Task description..." maxlength="100" class="task-input" style="margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <input type="number" id="edit-suggestion-points" placeholder="Points" min="1" max="10" class="points-input custom-points-input" style="width: 100px; margin-bottom: 0;">
+                                <span class="points-label">points</span>
+                            </div>
+                            <div class="input-actions">
+                                <button class="save-task-btn" onclick="saveEditedSuggestion()">Save Changes</button>
+                                <button class="cancel-task-btn" onclick="hideEditSuggestionForm()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        const installButton = document.getElementById('install-button');
+        const installPrompt = document.getElementById('install-prompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+            console.log('PWA was installed');
+        });
+
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId === 'calendar-page') {
+                updateTodayPointsDisplay();
+            }
+            
+            if (pageId === 'all-tasks-page') {
+                initializeAllTasksPage();
+            }
+            
+            if (pageId === 'calendar-view-page') {
+                generateCalendar();
+            }
+        }
+
+        // Enhanced interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.feature-card');
+            
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${0.4 + index * 0.1}s`;
+                
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            loadTasks();
+            initProductivityData();
+        });
+
+        // To-Do List Functionality
+        let tasks = {
+            asap: [],
+            week: [],
+            month: [],
+            notimeline: [],
+            completed: []
+        };
+
+        // Daily Productivity Points System
+        let productivityData = {};
+        
+        // Quick suggestions - now editable
+        let quickSuggestions = [
+            { description: "Make Bed", points: 1 },
+            { description: "Workout", points: 3 },
+            { description: "Visit family", points: 3 },
+            { description: "Call family", points: 1 },
+            { description: "Hobby", points: 3 },
+            { description: "Clean room", points: 2 }
+        ];
+        
+        // Task catalog - predefined tasks that users can choose from
+        let taskCatalog = [
+            { description: "Make Bed", points: 1 },
+            { description: "Workout", points: 3 },
+            { description: "Visit family", points: 3 },
+            { description: "Call family", points: 1 },
+            { description: "Hobby", points: 3 },
+            { description: "Clean room", points: 2 },
+            { description: "Read book", points: 2 },
+            { description: "Meditate", points: 2 },
+            { description: "Cook meal", points: 2 },
+            { description: "Go for a walk", points: 1 },
+            { description: "Learn something new", points: 3 },
+            { description: "Call a friend", points: 1 },
+            { description: "Practice gratitude", points: 1 },
+            { description: "Drink 8 glasses of water", points: 1 },
+            { description: "Take vitamins", points: 1 },
+            { description: "Stretch/yoga", points: 2 },
+            { description: "Listen to podcast", points: 1 },
+            { description: "Write in journal", points: 2 },
+            { description: "Do laundry", points: 1 },
+            { description: "Unload dishwasher", points: 1 },
+            { description: "Take out trash", points: 1 }
+        ];
+
+        let currentEditingTaskIndex = -1;
+        let currentEditingSuggestionIndex = -1;
+        let currentCalendarDate = new Date();
+        let completedTasksVisible = false;
+
+        function initProductivityData() {
+            const today = formatDateKey(new Date());
+            
+            if (!productivityData[today]) {
+                productivityData[today] = { points: 0, tasks: [] };
+            }
+            
+            // Add some sample data for demonstration
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const twoDaysAgo = new Date();
+            twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+            
+            const yesterdayKey = formatDateKey(yesterday);
+            const twoDaysAgoKey = formatDateKey(twoDaysAgo);
+            
+            if (!productivityData[yesterdayKey]) {
+                productivityData[yesterdayKey] = { 
+                    points: 15, 
+                    tasks: [
+                        { description: "Completed morning workout", points: 10 },
+                        { description: "Read for 30 minutes", points: 5 }
+                    ]
+                };
+            }
+            if (!productivityData[twoDaysAgoKey]) {
+                productivityData[twoDaysAgoKey] = { 
+                    points: 8, 
+                    tasks: [
+                        { description: "Organized workspace", points: 8 }
+                    ]
+                };
+            }
+            
+            updateTodayPointsDisplay();
+        }
+
+        function formatDateKey(date) {
+            return date.getFullYear() + '-' + 
+                   String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                   String(date.getDate()).padStart(2, '0');
+        }
+
+        function updateTodayPointsDisplay() {
+            const today = formatDateKey(new Date());
+            const todayData = productivityData[today] || { points: 0, tasks: [] };
+            const element = document.getElementById('today-points-display');
+            if (element) {
+                element.textContent = todayData.points;
+            }
+        }
+
+        function showAddTaskForm() {
+            const addTaskForm = document.getElementById('add-task-form');
+            const taskDescription = document.getElementById('task-description');
+            
+            if (addTaskForm) {
+                addTaskForm.style.display = 'block';
+            }
+            if (taskDescription) {
+                taskDescription.focus();
+            }
+            clearTaskForm();
+            renderQuickSuggestions(); // Render the suggestions when form is shown
+        }
+
+        function hideAddTaskForm() {
+            const addTaskForm = document.getElementById('add-task-form');
+            
+            if (addTaskForm) {
+                addTaskForm.style.display = 'none';
+            }
+            clearTaskForm();
+            hideEditSuggestionForm(); // Hide edit suggestion form if open
+        }
+
+        function clearTaskForm() {
+            const taskDescription = document.getElementById('task-description');
+            const customPoints = document.getElementById('custom-points');
+            
+            if (taskDescription) {
+                taskDescription.value = '';
+            }
+            if (customPoints) {
+                customPoints.value = '';
+            }
+            
+            document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+        }
+
+        function selectSuggestion(description, points) {
+            document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            const taskDescription = document.getElementById('task-description');
+            const customPoints = document.getElementById('custom-points');
+            
+            if (taskDescription) {
+                taskDescription.value = description;
+            }
+            if (customPoints) {
+                customPoints.value = points;
+            }
+        }
+
+        function saveCompletedTask() {
+            const descriptionInput = document.getElementById('task-description');
+            const pointsInput = document.getElementById('custom-points');
+            
+            if (!descriptionInput || !pointsInput) {
+                console.error('Form elements not found');
+                return;
+            }
+            
+            const description = descriptionInput.value.trim();
+            const points = parseInt(pointsInput.value);
+            
+            if (!description) {
+                descriptionInput.focus();
+                return;
+            }
+            
+            if (!points || points < 1 || points > 10) {
+                pointsInput.focus();
+                return;
+            }
+            
+            const today = formatDateKey(new Date());
+            
+            if (!productivityData[today]) {
+                productivityData[today] = { points: 0, tasks: [] };
+            }
+            
+            if (!productivityData[today].tasks) {
+                productivityData[today].tasks = [];
+            }
+            
+            productivityData[today].points += points;
+            productivityData[today].tasks.push({ description, points });
+            
+            updateTodayPointsDisplay();
+            hideAddTaskForm();
+            
+            const pointsDisplay = document.getElementById('today-points-display');
+            if (pointsDisplay) {
+                pointsDisplay.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    pointsDisplay.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        function loadTasks() {
+            if (tasks.asap.length === 0) {
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(today.getDate() + 1);
+                const nextWeek = new Date(today);
+                nextWeek.setDate(today.getDate() + 5);
+                const nextMonth = new Date(today);
+                nextMonth.setDate(today.getDate() + 20);
+                
+                tasks.asap = [
+                    { 
+                        id: Date.now(), 
+                        text: "Finish important presentation", 
+                        completed: false,
+                        dueDate: tomorrow.toISOString().split('T')[0]
+                    }
+                ];
+                tasks.week = [
+                    { 
+                        id: Date.now() + 1, 
+                        text: "Schedule dentist appointment", 
+                        completed: false,
+                        dueDate: nextWeek.toISOString().split('T')[0]
+                    }
+                ];
+                tasks.month = [
+                    { 
+                        id: Date.now() + 2, 
+                        text: "Plan vacation itinerary", 
+                        completed: false,
+                        dueDate: nextMonth.toISOString().split('T')[0]
+                    }
+                ];
+                tasks.notimeline = [
+                    { 
+                        id: Date.now() + 3, 
+                        text: "Learn a new language", 
+                        completed: false,
+                        dueDate: null
+                    }
+                ];
+            }
+            
+            renderAllTasks();
+        }
+
+        function addTask(section) {
+            const taskList = document.getElementById(`${section}-tasks`);
+            
+            const inputContainer = document.createElement('div');
+            inputContainer.className = 'task-input-container';
+            inputContainer.innerHTML = `
+                <input type="text" class="task-input" placeholder="Enter your task..." maxlength="200">
+                <div class="date-input-container">
+                    <label for="task-date">Due date (optional):</label>
+                    <input type="date" class="task-date-input" id="task-date">
+                </div>
+                <div class="input-actions">
+                    <button class="save-task-btn" onclick="saveTask('${section}', this)">Save</button>
+                    <button class="cancel-task-btn" onclick="cancelTask(this)">Cancel</button>
+                </div>
+            `;
+            
+            taskList.appendChild(inputContainer);
+            
+            const input = inputContainer.querySelector('.task-input');
+            input.focus();
+            
+            const dateInput = inputContainer.querySelector('.task-date-input');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveTask(section, inputContainer.querySelector('.save-task-btn'));
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    cancelTask(inputContainer.querySelector('.cancel-task-btn'));
+                }
+            });
+        }
+
+        function saveTask(section, button) {
+            const inputContainer = button.closest('.task-input-container');
+            const input = inputContainer.querySelector('.task-input');
+            const dateInput = inputContainer.querySelector('.task-date-input');
+            const taskText = input.value.trim();
+            const dueDate = dateInput.value;
+            
+            if (taskText) {
+                const newTask = {
+                    id: Date.now(),
+                    text: taskText,
+                    completed: false,
+                    dueDate: dueDate || null,
+                    originalSection: section
+                };
+                
+                const correctSection = determineSection(dueDate);
+                tasks[correctSection].push(newTask);
+                
+                inputContainer.remove();
+                renderAllTasks();
+            } else {
+                input.focus();
+            }
+        }
+
+        function cancelTask(button) {
+            const inputContainer = button.closest('.task-input-container');
+            inputContainer.remove();
+        }
+
+        function toggleTask(section, taskId) {
+            const task = tasks[section].find(t => t.id === taskId);
+            if (task) {
+                // Mark as completed and move to completed section
+                task.completed = true;
+                task.completedDate = new Date().toISOString();
+                task.originalSection = section;
+                
+                // Move to completed tasks
+                tasks.completed.push(task);
+                tasks[section] = tasks[section].filter(t => t.id !== taskId);
+                
+                renderAllTasks();
+                updateCompletedTasksButton();
+            }
+        }
+
+        function uncompleteTask(taskId) {
+            const task = tasks.completed.find(t => t.id === taskId);
+            if (task) {
+                // Mark as not completed and move back to original section
+                task.completed = false;
+                delete task.completedDate;
+                
+                const targetSection = task.originalSection || 'notimeline';
+                tasks[targetSection].push(task);
+                tasks.completed = tasks.completed.filter(t => t.id !== taskId);
+                
+                renderAllTasks();
+                updateCompletedTasksButton();
+            }
+        }
+
+        function clearCompletedTasks() {
+            if (tasks.completed.length === 0) return;
+            
+            if (confirm(`Are you sure you want to clear all ${tasks.completed.length} completed tasks? This cannot be undone.`)) {
+                tasks.completed = [];
+                renderTasks('completed');
+                updateCompletedTasksButton();
+            }
+        }
+
+        function toggleCompletedTasks() {
+            completedTasksVisible = !completedTasksVisible;
+            const container = document.getElementById('completed-tasks-container');
+            const button = document.getElementById('completed-toggle-btn');
+            const toggleText = button.querySelector('.toggle-text');
+            
+            if (completedTasksVisible) {
+                container.style.display = 'block';
+                button.classList.add('active');
+                toggleText.textContent = 'Hide Completed Tasks';
+            } else {
+                container.style.display = 'none';
+                button.classList.remove('active');
+                toggleText.textContent = 'Show Completed Tasks';
+            }
+        }
+
+        function updateCompletedTasksButton() {
+            const countElement = document.getElementById('completed-count');
+            const completedCount = tasks.completed.length;
+            
+            if (countElement) {
+                countElement.textContent = `(${completedCount})`;
+            }
+            
+            // If no completed tasks and section is visible, hide it
+            if (completedCount === 0 && completedTasksVisible) {
+                toggleCompletedTasks();
+            }
+        }
+
+        function deleteTask(section, taskId) {
+            tasks[section] = tasks[section].filter(t => t.id !== taskId);
+            renderTasks(section);
+        }
+
+        function renderTasks(section) {
+            const taskList = document.getElementById(`${section}-tasks`);
+            const sectionTasks = tasks[section];
+            
+            const existingTasks = taskList.querySelectorAll('.task-item');
+            existingTasks.forEach(task => task.remove());
+            
+            // Remove empty state if it exists
+            const emptyState = taskList.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
+            }
+            
+            if (sectionTasks.length === 0) {
+                if (section === 'completed') {
+                    const emptyMessage = document.createElement('div');
+                    emptyMessage.className = 'empty-state';
+                    emptyMessage.textContent = 'No completed tasks yet. Complete some tasks to see them here!';
+                    taskList.appendChild(emptyMessage);
+                }
+                return;
+            }
+            
+            let sortedTasks;
+            if (section === 'completed') {
+                // Sort completed tasks by completion date (newest first)
+                sortedTasks = [...sectionTasks].sort((a, b) => {
+                    return new Date(b.completedDate) - new Date(a.completedDate);
+                });
+            } else {
+                // Sort other tasks by due date
+                sortedTasks = [...sectionTasks].sort((a, b) => {
+                    if (!a.dueDate && !b.dueDate) return 0;
+                    if (!a.dueDate) return 1;
+                    if (!b.dueDate) return -1;
+                    return new Date(a.dueDate) - new Date(b.dueDate);
+                });
+            }
+            
+            sortedTasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                let dateInfo = '';
+                if (section === 'completed' && task.completedDate) {
+                    const completedDate = new Date(task.completedDate);
+                    const isToday = completedDate.toDateString() === new Date().toDateString();
+                    const isYesterday = new Date(completedDate.getTime() + 24 * 60 * 60 * 1000).toDateString() === new Date().toDateString();
+                    
+                    let dateText;
+                    if (isToday) {
+                        dateText = 'Completed today';
+                    } else if (isYesterday) {
+                        dateText = 'Completed yesterday';
+                    } else {
+                        dateText = `Completed ${completedDate.toLocaleDateString()}`;
+                    }
+                    
+                    dateInfo = `<span class="task-due-date normal">${dateText}</span>`;
+                } else if (task.dueDate) {
+                    const dueDateText = formatDueDate(task.dueDate);
+                    const dueDateClass = getDueDateClass(task.dueDate);
+                    dateInfo = `<span class="task-due-date ${dueDateClass}">${dueDateText}</span>`;
+                }
+                
+                if (section === 'completed') {
+                    taskElement.innerHTML = `
+                        <div class="task-checkbox checked" 
+                             onclick="uncompleteTask(${task.id})">
+                            ✓
+                        </div>
+                        <div class="task-content">
+                            <span class="task-text">${task.text}</span>
+                            ${dateInfo}
+                        </div>
+                        <button class="delete-task-btn" onclick="deleteTask('completed', ${task.id})">
+                            Delete
+                        </button>
+                    `;
+                } else {
+                    taskElement.innerHTML = `
+                        <div class="task-checkbox ${task.completed ? 'checked' : ''}" 
+                             onclick="toggleTask('${section}', ${task.id})">
+                            ${task.completed ? '✓' : ''}
+                        </div>
+                        <div class="task-content">
+                            <span class="task-text">${task.text}</span>
+                            ${dateInfo}
+                        </div>
+                        <button class="delete-task-btn" onclick="deleteTask('${section}', ${task.id})">
+                            Delete
+                        </button>
+                    `;
+                }
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        function formatDueDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const diffTime = date - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return 'Due Today';
+            } else if (diffDays === 1) {
+                return 'Due Tomorrow';
+            } else if (diffDays === -1) {
+                return 'Due Yesterday';
+            } else if (diffDays < 0) {
+                return `Overdue by ${Math.abs(diffDays)} days`;
+            } else if (diffDays <= 7) {
+                return `Due in ${diffDays} days`;
+            } else {
+                return `Due ${date.toLocaleDateString()}`;
+            }
+        }
+
+        function getDueDateClass(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const diffTime = date - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) {
+                return 'overdue';
+            } else if (diffDays <= 1) {
+                return 'urgent';
+            } else if (diffDays <= 3) {
+                return 'soon';
+            } else {
+                return 'normal';
+            }
+        }
+
+        function determineSection(dueDate) {
+            if (!dueDate) {
+                return 'notimeline';
+            }
+            
+            const date = new Date(dueDate);
+            const today = new Date();
+            const diffTime = date - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays <= 2) {
+                return 'asap';
+            } else if (diffDays <= 7) {
+                return 'week';
+            } else if (diffDays <= 30) {
+                return 'month';
+            } else {
+                return 'notimeline';
+            }
+        }
+
+        function renderAllTasks() {
+            ['asap', 'week', 'month', 'notimeline', 'completed'].forEach(section => {
+                renderTasks(section);
+            });
+            updateCompletedTasksButton();
+        }
+
+        // All Tasks Page Functions
+        function initializeAllTasksPage() {
+            updateAllTasksStats();
+            renderAllTasksCatalog();
+        }
+
+        function updateAllTasksStats() {
+            const totalTasks = taskCatalog.length;
+            
+            const totalEl = document.getElementById('total-unique-tasks');
+            const countEl = document.getElementById('task-count-display');
+            
+            if (totalEl) totalEl.textContent = totalTasks;
+            if (countEl) countEl.textContent = `${totalTasks} tasks`;
+        }
+
+        function renderAllTasksCatalog(searchQuery = '') {
+            const allTasksGrid = document.getElementById('all-tasks-grid-full');
+            if (!allTasksGrid) return;
+            
+            allTasksGrid.innerHTML = '';
+            
+            let filteredTasks = taskCatalog;
+            if (searchQuery.trim()) {
+                filteredTasks = taskCatalog.filter(task =>
+                    task.description.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            
+            const sortedTasks = [...filteredTasks].sort((a, b) => 
+                a.description.toLowerCase().localeCompare(b.description.toLowerCase())
+            );
+            
+            if (sortedTasks.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-tasks-state';
+                if (searchQuery.trim()) {
+                    emptyState.innerHTML = `
+                        <div class="empty-tasks-icon">🔍</div>
+                        <p>No tasks found matching "${searchQuery}"</p>
+                    `;
+                } else {
+                    emptyState.innerHTML = `
+                        <div class="empty-tasks-icon">📝</div>
+                        <p>No tasks available in the catalog.</p>
+                    `;
+                }
+                allTasksGrid.appendChild(emptyState);
+                return;
+            }
+            
+            sortedTasks.forEach((task, index) => {
+                const originalIndex = taskCatalog.findIndex(t => 
+                    t.description === task.description && t.points === task.points
+                );
+                
+                const taskElement = document.createElement('div');
+                taskElement.className = 'all-task-item-full';
+                taskElement.innerHTML = `
+                    <span class="all-task-text-full">${task.description}</span>
+                    <span class="all-task-points-full">${task.points}pts</span>
+                `;
+                
+                taskElement.addEventListener('click', () => selectTaskFromCatalog(taskElement, task));
+                
+                // Add right-click for editing (desktop)
+                taskElement.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    editCatalogTask(originalIndex);
+                });
+                
+                // Add double-click for editing (desktop/mobile)
+                taskElement.addEventListener('dblclick', (e) => {
+                    e.preventDefault();
+                    editCatalogTask(originalIndex);
+                });
+                
+                // Add long press for editing (mobile)
+                let pressTimer;
+                taskElement.addEventListener('touchstart', (e) => {
+                    pressTimer = setTimeout(() => {
+                        editCatalogTask(originalIndex);
+                        // Add haptic feedback if available
+                        if (navigator.vibrate) {
+                            navigator.vibrate(50);
+                        }
+                    }, 500); // 500ms = long press
+                });
+                
+                taskElement.addEventListener('touchend', () => {
+                    clearTimeout(pressTimer);
+                });
+                
+                taskElement.addEventListener('touchmove', () => {
+                    clearTimeout(pressTimer);
+                });
+                
+                allTasksGrid.appendChild(taskElement);
+            });
+            
+            const countEl = document.getElementById('task-count-display');
+            if (countEl) {
+                if (searchQuery.trim()) {
+                    countEl.textContent = `${sortedTasks.length} of ${taskCatalog.length} tasks`;
+                } else {
+                    countEl.textContent = `${taskCatalog.length} tasks`;
+                }
+            }
+        }
+
+        function searchCatalogTasks() {
+            const searchInput = document.getElementById('catalog-search');
+            const searchQuery = searchInput.value;
+            renderAllTasksCatalog(searchQuery);
+        }
+
+        function selectTaskFromCatalog(element, task) {
+            document.querySelectorAll('.all-task-item-full').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            showPage('calendar-page');
+            
+            setTimeout(() => {
+                showAddTaskForm();
+                
+                setTimeout(() => {
+                    const taskInput = document.getElementById('task-description');
+                    const pointsInput = document.getElementById('custom-points');
+                    
+                    if (taskInput) taskInput.value = task.description;
+                    if (pointsInput) pointsInput.value = task.points;
+                    
+                    document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                }, 100);
+            }, 100);
+        }
+
+        function showAddCatalogTaskForm() {
+            document.getElementById('add-catalog-task-form').style.display = 'block';
+            document.getElementById('catalog-task-description').focus();
+            hideEditCatalogTaskForm(); // Hide edit form if open
+        }
+
+        function hideCatalogTaskForm() {
+            document.getElementById('add-catalog-task-form').style.display = 'none';
+            document.getElementById('catalog-task-description').value = '';
+            document.getElementById('catalog-task-points').value = '';
+        }
+
+        function saveCatalogTask() {
+            const descriptionInput = document.getElementById('catalog-task-description');
+            const pointsInput = document.getElementById('catalog-task-points');
+            
+            const description = descriptionInput.value.trim();
+            const points = parseInt(pointsInput.value);
+            
+            if (!description) {
+                descriptionInput.focus();
+                return;
+            }
+            
+            if (!points || points < 1 || points > 10) {
+                pointsInput.focus();
+                return;
+            }
+            
+            const existingTask = taskCatalog.find(task => 
+                task.description.toLowerCase() === description.toLowerCase()
+            );
+            
+            if (existingTask) {
+                alert('A task with this description already exists in the catalog.');
+                descriptionInput.focus();
+                return;
+            }
+            
+            taskCatalog.push({ description, points });
+            
+            updateAllTasksStats();
+            renderAllTasksCatalog();
+            hideCatalogTaskForm();
+        }
+
+        function editCatalogTask(index) {
+            currentEditingTaskIndex = index;
+            const task = taskCatalog[index];
+            
+            document.getElementById('edit-catalog-task-description').value = task.description;
+            document.getElementById('edit-catalog-task-points').value = task.points;
+            document.getElementById('edit-catalog-task-form').style.display = 'block';
+            document.getElementById('edit-catalog-task-description').focus();
+            
+            hideCatalogTaskForm(); // Hide add form if open
+        }
+
+        function hideEditCatalogTaskForm() {
+            document.getElementById('edit-catalog-task-form').style.display = 'none';
+            document.getElementById('edit-catalog-task-description').value = '';
+            document.getElementById('edit-catalog-task-points').value = '';
+            currentEditingTaskIndex = -1;
+        }
+
+        function saveEditedCatalogTask() {
+            if (currentEditingTaskIndex === -1) return;
+            
+            const descriptionInput = document.getElementById('edit-catalog-task-description');
+            const pointsInput = document.getElementById('edit-catalog-task-points');
+            
+            const description = descriptionInput.value.trim();
+            const points = parseInt(pointsInput.value);
+            
+            if (!description) {
+                descriptionInput.focus();
+                return;
+            }
+            
+            if (!points || points < 1 || points > 10) {
+                pointsInput.focus();
+                return;
+            }
+            
+            // Check if task already exists (excluding current task)
+            const existingTask = taskCatalog.find((task, index) => 
+                index !== currentEditingTaskIndex && 
+                task.description.toLowerCase() === description.toLowerCase()
+            );
+            
+            if (existingTask) {
+                alert('A task with this description already exists in the catalog.');
+                descriptionInput.focus();
+                return;
+            }
+            
+            // Update task
+            taskCatalog[currentEditingTaskIndex] = { description, points };
+            
+            // Refresh display
+            updateAllTasksStats();
+            renderAllTasksCatalog();
+            hideEditCatalogTaskForm();
+        }
+
+        function deleteCatalogTask() {
+            if (currentEditingTaskIndex === -1) return;
+            
+            const task = taskCatalog[currentEditingTaskIndex];
+            if (confirm(`Are you sure you want to delete "${task.description}" from the catalog?`)) {
+                taskCatalog.splice(currentEditingTaskIndex, 1);
+                
+                // Refresh display
+                updateAllTasksStats();
+                renderAllTasksCatalog();
+                hideEditCatalogTaskForm();
+            }
+        }
+
+        // Quick Suggestions Functions
+        function renderQuickSuggestions() {
+            const suggestionsContainer = document.getElementById('suggestion-buttons');
+            if (!suggestionsContainer) return;
+            
+            suggestionsContainer.innerHTML = '';
+            
+            quickSuggestions.forEach((suggestion, index) => {
+                const suggestionBtn = document.createElement('button');
+                suggestionBtn.className = 'suggestion-btn';
+                suggestionBtn.textContent = `${suggestion.description} (${suggestion.points}pt)`;
+                suggestionBtn.onclick = () => selectSuggestion(suggestion.description, suggestion.points);
+                
+                // Add editing functionality
+                // Right-click to edit (desktop)
+                suggestionBtn.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    editQuickSuggestion(index);
+                });
+                
+                // Double-click to edit
+                suggestionBtn.addEventListener('dblclick', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    editQuickSuggestion(index);
+                });
+                
+                // Long press for mobile
+                let pressTimer;
+                suggestionBtn.addEventListener('touchstart', (e) => {
+                    pressTimer = setTimeout(() => {
+                        editQuickSuggestion(index);
+                        if (navigator.vibrate) {
+                            navigator.vibrate(50);
+                        }
+                    }, 500);
+                });
+                
+                suggestionBtn.addEventListener('touchend', () => {
+                    clearTimeout(pressTimer);
+                });
+                
+                suggestionBtn.addEventListener('touchmove', () => {
+                    clearTimeout(pressTimer);
+                });
+                
+                suggestionsContainer.appendChild(suggestionBtn);
+            });
+        }
+
+        function editQuickSuggestion(index) {
+            currentEditingSuggestionIndex = index;
+            const suggestion = quickSuggestions[index];
+            
+            document.getElementById('edit-suggestion-description').value = suggestion.description;
+            document.getElementById('edit-suggestion-points').value = suggestion.points;
+            document.getElementById('edit-suggestion-form').style.display = 'block';
+            document.getElementById('edit-suggestion-description').focus();
+        }
+
+        function hideEditSuggestionForm() {
+            document.getElementById('edit-suggestion-form').style.display = 'none';
+            document.getElementById('edit-suggestion-description').value = '';
+            document.getElementById('edit-suggestion-points').value = '';
+            currentEditingSuggestionIndex = -1;
+        }
+
+        function saveEditedSuggestion() {
+            if (currentEditingSuggestionIndex === -1) return;
+            
+            const descriptionInput = document.getElementById('edit-suggestion-description');
+            const pointsInput = document.getElementById('edit-suggestion-points');
+            
+            const description = descriptionInput.value.trim();
+            const points = parseInt(pointsInput.value);
+            
+            if (!description) {
+                descriptionInput.focus();
+                return;
+            }
+            
+            if (!points || points < 1 || points > 10) {
+                pointsInput.focus();
+                return;
+            }
+            
+            // Update the suggestion
+            quickSuggestions[currentEditingSuggestionIndex] = { description, points };
+            
+            // Re-render the suggestions
+            renderQuickSuggestions();
+            hideEditSuggestionForm();
+        }
+
+        // Calendar functionality
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendar-grid');
+            const monthYearElement = document.getElementById('calendar-month-year');
+            
+            if (!calendarGrid || !monthYearElement) return;
+            
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            // Set month/year display
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            monthYearElement.textContent = `${monthNames[month]} ${year}`;
+            
+            // Clear previous calendar
+            calendarGrid.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const headerElement = document.createElement('div');
+                headerElement.className = 'calendar-day-header';
+                headerElement.textContent = day;
+                calendarGrid.appendChild(headerElement);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            // Generate calendar days
+            const today = new Date();
+            const todayKey = formatDateKey(today);
+            
+            for (let i = 0; i < 42; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const dateKey = formatDateKey(currentDate);
+                const dayData = productivityData[dateKey];
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                
+                // Add classes for styling
+                if (currentDate.getMonth() !== month) {
+                    dayElement.classList.add('other-month');
+                }
+                if (dateKey === todayKey) {
+                    dayElement.classList.add('today');
+                }
+                if (dayData && dayData.points > 0) {
+                    dayElement.classList.add('has-points');
+                    
+                    // Add point-range classes for color coding
+                    const points = dayData.points;
+                    if (points >= 0 && points <= 3) {
+                        dayElement.classList.add('points-0-3');
+                    } else if (points >= 4 && points <= 6) {
+                        dayElement.classList.add('points-4-6');
+                    } else if (points >= 7 && points <= 9) {
+                        dayElement.classList.add('points-7-9');
+                    } else if (points >= 10 && points <= 12) {
+                        dayElement.classList.add('points-10-12');
+                    } else if (points >= 13) {
+                        dayElement.classList.add('points-13-plus');
+                    }
+                }
+                
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'calendar-day-number';
+                dayNumber.textContent = currentDate.getDate();
+                dayElement.appendChild(dayNumber);
+                
+                // Points display
+                if (dayData && dayData.points > 0) {
+                    const pointsDisplay = document.createElement('div');
+                    pointsDisplay.className = 'calendar-day-points';
+                    pointsDisplay.textContent = `${dayData.points}pts`;
+                    dayElement.appendChild(pointsDisplay);
+                }
+                
+                // Add click event to show tasks for that day
+                dayElement.addEventListener('click', () => showDayTasks(currentDate, dayData));
+                
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            updateCalendarStats();
+        }
+
+        function previousMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            generateCalendar();
+        }
+
+        function updateCalendarStats() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            let monthTotal = 0;
+            let bestDay = 0;
+            let activeDays = 0;
+            
+            // Calculate stats for current month
+            for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
+                const dateKey = formatDateKey(new Date(year, month, day));
+                const dayData = productivityData[dateKey];
+                
+                if (dayData && dayData.points > 0) {
+                    monthTotal += dayData.points;
+                    bestDay = Math.max(bestDay, dayData.points);
+                    activeDays++;
+                }
+            }
+            
+            // Update display
+            const monthTotalEl = document.getElementById('month-total-points');
+            const bestDayEl = document.getElementById('month-best-day');
+            const activeDaysEl = document.getElementById('month-active-days');
+            
+            if (monthTotalEl) monthTotalEl.textContent = `${monthTotal} points`;
+            if (bestDayEl) bestDayEl.textContent = `${bestDay} points`;
+            if (activeDaysEl) activeDaysEl.textContent = `${activeDays} days`;
+        }
+
+        function showDayTasks(date, dayData) {
+            const dateKey = formatDateKey(date);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            // Get tasks for this day
+            const tasks = dayData && dayData.tasks ? dayData.tasks : [];
+            const totalPoints = dayData ? dayData.points : 0;
+            
+            // Create tasks HTML
+            const tasksHtml = tasks.length > 0 ? tasks.map(task => `
+                <div class="day-task-item">
+                    <span class="day-task-text">${task.description}</span>
+                    <span class="day-task-points">+${task.points}pts</span>
+                </div>
+            `).join('') : '<div class="no-tasks-message">No completed tasks on this day</div>';
+            
+            // Create modal
+            const modalHtml = `
+                <div class="day-modal-overlay" onclick="this.remove()">
+                    <div class="day-modal-content" onclick="event.stopPropagation()">
+                        <div class="day-modal-header">
+                            <h3 class="day-modal-title">${formattedDate}</h3>
+                            <button class="day-modal-close" onclick="this.closest('.day-modal-overlay').remove()">×</button>
+                        </div>
+                        <div class="day-modal-stats">
+                            <div class="day-stat-card">
+                                <span class="day-stat-number">${totalPoints}</span>
+                                <span class="day-stat-label">Total Points</span>
+                            </div>
+                            <div class="day-stat-card">
+                                <span class="day-stat-number">${tasks.length}</span>
+                                <span class="day-stat-label">Tasks Completed</span>
+                            </div>
+                        </div>
+                        <div class="day-modal-body">
+                            <h4 class="day-tasks-title">Completed Tasks</h4>
+                            <div class="day-tasks-list">
+                                ${tasksHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Add escape key listener
+            const escapeHandler = (e) => {
+                if (e.key === 'Escape') {
+                    const modal = document.querySelector('.day-modal-overlay');
+                    if (modal) {
+                        modal.remove();
+                        document.removeEventListener('keydown', escapeHandler);
+                    }
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
+        }
+    </script>
+</body>
+</html>
