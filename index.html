@@ -1841,6 +1841,7 @@
                 });
             });
 
+            loadData(); // Load saved data first
             loadTasks();
             initProductivityData();
         });
@@ -1897,6 +1898,42 @@
         let currentCalendarDate = new Date();
         let completedTasksVisible = false;
 
+        // Data persistence functions
+        function saveData() {
+            try {
+                localStorage.setItem('betterYourselfTasks', JSON.stringify(tasks));
+                localStorage.setItem('betterYourselfProductivity', JSON.stringify(productivityData));
+                localStorage.setItem('betterYourselfQuickSuggestions', JSON.stringify(quickSuggestions));
+                localStorage.setItem('betterYourselfTaskCatalog', JSON.stringify(taskCatalog));
+            } catch (error) {
+                console.log('Could not save to localStorage:', error);
+            }
+        }
+
+        function loadData() {
+            try {
+                const savedTasks = localStorage.getItem('betterYourselfTasks');
+                const savedProductivity = localStorage.getItem('betterYourselfProductivity');
+                const savedQuickSuggestions = localStorage.getItem('betterYourselfQuickSuggestions');
+                const savedTaskCatalog = localStorage.getItem('betterYourselfTaskCatalog');
+                
+                if (savedTasks) {
+                    tasks = JSON.parse(savedTasks);
+                }
+                if (savedProductivity) {
+                    productivityData = JSON.parse(savedProductivity);
+                }
+                if (savedQuickSuggestions) {
+                    quickSuggestions = JSON.parse(savedQuickSuggestions);
+                }
+                if (savedTaskCatalog) {
+                    taskCatalog = JSON.parse(savedTaskCatalog);
+                }
+            } catch (error) {
+                console.log('Could not load from localStorage:', error);
+            }
+        }
+
         function initProductivityData() {
             const today = formatDateKey(new Date());
             
@@ -1904,31 +1941,35 @@
                 productivityData[today] = { points: 0, tasks: [] };
             }
             
-            // Add some sample data for demonstration
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            const twoDaysAgo = new Date();
-            twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-            
-            const yesterdayKey = formatDateKey(yesterday);
-            const twoDaysAgoKey = formatDateKey(twoDaysAgo);
-            
-            if (!productivityData[yesterdayKey]) {
-                productivityData[yesterdayKey] = { 
-                    points: 15, 
-                    tasks: [
-                        { description: "Completed morning workout", points: 10 },
-                        { description: "Read for 30 minutes", points: 5 }
-                    ]
-                };
-            }
-            if (!productivityData[twoDaysAgoKey]) {
-                productivityData[twoDaysAgoKey] = { 
-                    points: 8, 
-                    tasks: [
-                        { description: "Organized workspace", points: 8 }
-                    ]
-                };
+            // Only add sample data if no data exists at all
+            if (Object.keys(productivityData).length <= 1) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const twoDaysAgo = new Date();
+                twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+                
+                const yesterdayKey = formatDateKey(yesterday);
+                const twoDaysAgoKey = formatDateKey(twoDaysAgo);
+                
+                if (!productivityData[yesterdayKey]) {
+                    productivityData[yesterdayKey] = { 
+                        points: 15, 
+                        tasks: [
+                            { description: "Completed morning workout", points: 10 },
+                            { description: "Read for 30 minutes", points: 5 }
+                        ]
+                    };
+                }
+                if (!productivityData[twoDaysAgoKey]) {
+                    productivityData[twoDaysAgoKey] = { 
+                        points: 8, 
+                        tasks: [
+                            { description: "Organized workspace", points: 8 }
+                        ]
+                    };
+                }
+                
+                saveData(); // Save the sample data
             }
             
             updateTodayPointsDisplay();
@@ -2042,6 +2083,7 @@
             productivityData[today].points += points;
             productivityData[today].tasks.push({ description, points });
             
+            saveData(); // Save to localStorage
             updateTodayPointsDisplay();
             hideAddTaskForm();
             
@@ -2055,7 +2097,8 @@
         }
 
         function loadTasks() {
-            if (tasks.asap.length === 0) {
+            // Only add sample data if no tasks exist at all
+            if (Object.keys(tasks).every(section => tasks[section].length === 0)) {
                 const today = new Date();
                 const tomorrow = new Date(today);
                 tomorrow.setDate(today.getDate() + 1);
@@ -2096,6 +2139,8 @@
                         dueDate: null
                     }
                 ];
+                
+                saveData(); // Save the sample data
             }
             
             renderAllTasks();
@@ -2161,6 +2206,7 @@
                 
                 inputContainer.remove();
                 renderAllTasks();
+                saveData(); // Save to localStorage
             } else {
                 input.focus();
             }
@@ -2185,6 +2231,7 @@
                 
                 renderAllTasks();
                 updateCompletedTasksButton();
+                saveData(); // Save to localStorage
             }
         }
 
@@ -2201,6 +2248,7 @@
                 
                 renderAllTasks();
                 updateCompletedTasksButton();
+                saveData(); // Save to localStorage
             }
         }
 
@@ -2211,6 +2259,7 @@
                 tasks.completed = [];
                 renderTasks('completed');
                 updateCompletedTasksButton();
+                saveData(); // Save to localStorage
             }
         }
 
@@ -2248,6 +2297,7 @@
         function deleteTask(section, taskId) {
             tasks[section] = tasks[section].filter(t => t.id !== taskId);
             renderTasks(section);
+            saveData(); // Save to localStorage
         }
 
         function renderTasks(section) {
@@ -2600,6 +2650,7 @@
             updateAllTasksStats();
             renderAllTasksCatalog();
             hideCatalogTaskForm();
+            saveData(); // Save to localStorage
         }
 
         function editCatalogTask(index) {
@@ -2659,6 +2710,7 @@
             updateAllTasksStats();
             renderAllTasksCatalog();
             hideEditCatalogTaskForm();
+            saveData(); // Save to localStorage
         }
 
         function deleteCatalogTask() {
@@ -2672,6 +2724,7 @@
                 updateAllTasksStats();
                 renderAllTasksCatalog();
                 hideEditCatalogTaskForm();
+                saveData(); // Save to localStorage
             }
         }
 
@@ -2768,6 +2821,7 @@
             // Re-render the suggestions
             renderQuickSuggestions();
             hideEditSuggestionForm();
+            saveData(); // Save to localStorage
         }
 
         // Calendar functionality
