@@ -1,6 +1,6 @@
 {
   "name": "Better Yourself",
-  "short_name": "Better Yourself",
+  "short_name": "Better Yourself", 
   "start_url": "/betteryourself/",
   "display": "standalone",
   "theme_color": "#6366f1",
@@ -8,14 +8,28 @@
   "scope": "/betteryourself/",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192x192/6366f1/ffffff?text=BY",
+      "src": "/betteryourself/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://via.placeholder.com/512x512/6366f1/ffffff?text=BY",
+      "src": "/betteryourself/icon-512.png", 
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/betteryourself/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/betteryourself/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
