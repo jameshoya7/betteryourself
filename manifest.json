@@ -2,14 +2,14 @@
   "name": "Better Yourself - Productivity App",
   "short_name": "Better Yourself",
   "description": "Productive & happy living made simple. Track tasks, build habits, and achieve your goals with this beautiful productivity app.",
-  "start_url": "./",
+  "start_url": "/betteryourself/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#6366f1",
   "background_color": "#ffffff",
   "categories": ["productivity", "lifestyle", "utilities"],
   "lang": "en",
-  "scope": "./",
+  "scope": "/betteryourself/",
   "icons": [
     {
       "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌟%3C/text%3E%3C/svg%3E",
