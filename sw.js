@@ -6,9 +6,9 @@ const STATIC_CACHE = 'better-yourself-static-v1';
 
 // Files to cache for offline use
 const STATIC_FILES = [
-  './',
-  './index.html',
-  './manifest.json'
+  '/betteryourself/',
+  '/betteryourself/index.html',
+  '/betteryourself/manifest.json'
 ];
 
 // Install event - cache static files
@@ -105,7 +105,7 @@ self.addEventListener('fetch', (event) => {
             
             // For navigation requests, always return the main app
             if (event.request.destination === 'document') {
-              return caches.match('./index.html')
+              return caches.match('/betteryourself/index.html')
                 .then((response) => {
                   if (response) {
                     return response;
@@ -188,7 +188,7 @@ self.addEventListener('message', (event) => {
   }
 
   if (event.data && event.data.type === 'CACHE_STATUS') {
-    caches.match('./index.html')
+    caches.match('/betteryourself/index.html')
       .then((response) => {
         event.ports[0].postMessage({ 
           cached: !!response,
@@ -196,27 +196,5 @@ self.addEventListener('message', (event) => {
           mode: 'offline'
         });
       });
-  }
-});
-
-// Ensure immediate offline capability
-self.addEventListener('install', (event) => {
-  // Force immediate activation for offline use
-  event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then((cache) => {
-        return cache.addAll(STATIC_FILES);
-      })
-      .then(() => {
-        console.log('Service Worker: App ready for offline use');
-        return self.skipWaiting();
-      })
-  );
-});
-
-// Log when app is running offline
-self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes(self.location.origin)) {
-    console.log('Service Worker: App running in offline mode');
   }
 });
