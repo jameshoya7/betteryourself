@@ -1,47 +1,21 @@
 {
-  "name": "Better Yourself - Productivity App",
+  "name": "Better Yourself",
   "short_name": "Better Yourself",
-  "description": "Productive & happy living made simple. Track tasks, build habits, and achieve your goals with this beautiful productivity app.",
   "start_url": "/betteryourself/",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "theme_color": "#6366f1",
   "background_color": "#ffffff",
-  "categories": ["productivity", "lifestyle", "utilities"],
-  "lang": "en",
   "scope": "/betteryourself/",
   "icons": [
     {
       "src": "https://via.placeholder.com/192x192/6366f1/ffffff?text=BY",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "https://via.placeholder.com/512x512/6366f1/ffffff?text=BY",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://via.placeholder.com/192x192/6366f1/ffffff?text=BY",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "https://via.placeholder.com/512x512/6366f1/ffffff?text=BY",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "https://via.placeholder.com/400x800/ffffff/333333?text=Better+Yourself+App",
-      "sizes": "400x800",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "type": "image/png"
     }
   ]
 }
