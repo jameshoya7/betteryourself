@@ -1,6 +1,6 @@
 {
-  "name": "Better Yourself",
-  "short_name": "Better Yourself", 
+  "name": "To-Do",
+  "short_name": "To-Do", 
   "start_url": "/betteryourself/",
   "display": "standalone",
   "theme_color": "#6366f1",
